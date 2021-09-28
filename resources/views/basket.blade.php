@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master')
 
 @section('title', 'Корзина')
 
@@ -27,11 +27,13 @@
                         </a>
                     </td>
                     <td>
-                        <span class="badge">1</span>
-                        <div class="btn-group">
-                            <a type="button" class="btn btn-danger" href="">
-                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                            </a>
+                        <span class="badge">{{ $product -> pivot -> count }}</span>
+                        <div class="btn-group form-inline">
+                            <form action="{{route('basket-remove', $product)}}" method="POST">
+                                <button type="submit" class="btn btn-danger" href="{{ route('basket-remove', $product) }}">
+                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                    @csrf
+                            </form>
                             <form action="{{route('basket-add', $product)}}" method="POST">
                                 <button type="submit" class="btn btn-success" href="{{ route('basket-add', $product) }}">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -41,18 +43,18 @@
                         </div>
                     </td>
                     <td>{{ $product -> price }} RUB</td>
-                    <td>{{ $product -> price }} RUB</td>
+                    <td>{{ $product -> getPriceForCount() }} RUB</td>
                 </tr>
                 @endforeach
                 <tr>
                     <td colspan="3">Общая стоимость:</td>
-                    <td>234234rub</td>
+                    <td>{{ $order -> getFullPrice() }}</td>
                 </tr>
             </tbody>
         </table>
         <br>
         <div class="btn-group pull-right" role="group">
-            <a type="button" class="btn btn-success" href="">Оформить заказ</a>
+            <a type="button" class="btn btn-success" href="{{ route('basket-place') }}">Оформить заказ</a>
         </div>
     </div>
 </div>

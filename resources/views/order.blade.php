@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master')
 
 @section('title', 'Оформить заказ')
 
@@ -8,9 +8,10 @@
     <h1>Podtverdite zakaz</h1>
     <div class="container">
         <div class="row justify-content-center">
-            <p>общая стоимость заказа: <b>71999 rub.</b></p>
-            <form action="" method="POST">
+            <p>общая стоимость заказа: <b>{{ $order -> getFullPrice() }}</b></p>
+            <form action=" {{ route('basket-confirm') }}" method="POST">
                 <div>
+                    <br>
                     <p>Укажите имя и номер телефона, что бы наш менеджер мог с вами связаться</p>
                     <div class="container">
                         <div class="form-group">
@@ -31,7 +32,8 @@
                     <br>
                     <input type="hidden" name="_token" value="egheiorhgoergkoenk">
                     <br>
-                    <input type="submit" class="btn btn-success" href="" value="Подтвердите заказ">
+                    @csrf
+                    <input type="submit" class="btn btn-success" value="Подтвердите заказ">
                 </div>
             </form>
         </div>
