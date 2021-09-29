@@ -70,7 +70,16 @@
                             <li><a href="{{ route('index') }}" class="text-white">Все товары</a></li>
                             <li><a href="{{ route('categories') }}" class="text-white">Категории</a></li>
                             <li><a href="{{ route('basket') }}" class="text-white">В корзину</a></li>
-                            {{-- <li><a href="#" class="text-white">technics</a></li> --}}
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            @guest
+                            <li><a href="{{ route('login') }}" class="text-white">Войти</a></li>
+                            @endguest
+
+                            @auth
+                            {{-- <li><a href="{{ route('get-logout') }}" class="text-white">Панель администартора</a></li> --}}
+                            <li><a href="{{ Auth::logout() }}" class="text-white">Logout</a></li>
+                            @endauth
                         </ul>
                     </div>
                 </div>

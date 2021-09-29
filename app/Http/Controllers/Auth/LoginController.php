@@ -21,12 +21,15 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected function redirectTo() {
+        return route('home');
+    }
+
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -38,10 +41,10 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function logout() {
-        Auth::logout();
-        return redirect()
-            ->route('auth.login')
-            ->with('success', 'Вы вышли из личного кабинета');
-    }
+    // public function logout() {
+    //     Auth::logout();
+    //     return redirect()
+    //         ->route('auth.login')
+    //         ->with('success', 'Вы вышли из личного кабинета');
+    // }
 }

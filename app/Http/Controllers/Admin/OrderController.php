@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Order;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class OrderController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        dd('auth.home');
-        return view('auth.home');
+        $orders = Order::where('status', 1) -> get();
+        return view('auth.orders.index', compact('orders'));
     }
 }
