@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class HomeController extends Controller
 {
     /**
      * Create a new controller instance.

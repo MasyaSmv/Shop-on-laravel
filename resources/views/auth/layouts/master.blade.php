@@ -38,18 +38,18 @@
                 Вернуться на сайт
             </a>
 
-            {{-- <div id="navbar" class="collapse navbar-collapse">
+            <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    @admin
-                    <li><a href="{{ route('categories.index') }}">Категории</a></li>
-                    <li><a href="{{ route('products.index') }}">Товары</a>
-                    <li><a href="{{ route('properties.index') }}">Свойства</a>
-                    <li><a href="{{ route('coupons.index') }}">Купоны</a>
-                    <li><a href="{{ route('merchants.index') }}">Поставщики</a>
+                    {{-- @admin --}}
+                    <li><a href="">Категории</a></li>
+                    <li><a href="">Товары</a>
+                    <li><a href="">Свойства</a>
+                    <li><a href="">Купоны</a>
+                    <li><a href="">Поставщики</a>
                     </li>
                     <li><a href="{{ route('home') }}">Заказы</a></li>
-                    @endadmin
-                </ul> --}}
+                    {{-- @endadmin --}}
+                </ul>
 
                 @guest
                     <ul class="nav navbar-nav navbar-right">
@@ -63,6 +63,11 @@
                 @endguest
 
                 @auth
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Панель администратора</a>
+                    </li>
+                </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"

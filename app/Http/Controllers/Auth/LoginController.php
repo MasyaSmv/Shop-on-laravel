@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -25,6 +26,17 @@ class LoginController extends Controller
         return route('home');
     }
 
+    // Авторизация от офф ларавелки
+    // public function authenticate(Request $request)
+    // {
+    //     $credentials = $request->only('email', 'password');
+
+    //     if (Auth::attempt($credentials)) {
+    //         // Authentication passed...
+    //         return redirect()->intended('dashboard');
+    //     }
+    // }
+
     /**
      * Where to redirect users after login.
      *
@@ -41,10 +53,10 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function logout() {
-    //     Auth::logout();
-    //     return redirect()
-    //         ->route('auth.login')
-    //         ->with('success', 'Вы вышли из личного кабинета');
+    // public function logout () {
+    //     //logout user
+    //     auth()->logout();
+    //     // redirect to homepage
+    //     return redirect() -> route('index');
     // }
 }

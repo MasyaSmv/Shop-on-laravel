@@ -77,8 +77,8 @@
                             @endguest
 
                             @auth
-                            {{-- <li><a href="{{ route('get-logout') }}" class="text-white">Панель администартора</a></li> --}}
-                            <li><a href="{{ Auth::logout() }}" class="text-white">Logout</a></li>
+                            <li><a href="{{ route('home') }}" class="text-white">Панель администартора</a></li>
+                            <a class="text-white" href="{{ url('/logout') }}"> logout </a>
                             @endauth
                         </ul>
                     </div>
@@ -110,6 +110,9 @@
                 @endif
                 @if (session() -> has('warning'))
                 <p class="alert alert-warning">{{ session() -> get('warning') }}</p>
+                @endif
+                @if (session() -> has('access'))
+                <p class="alert alert-warning">{{ session() -> get('access') }}</p>
                 @endif
 
 @yield('content')
