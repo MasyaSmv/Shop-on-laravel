@@ -12,25 +12,34 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+// надстройки аудентификации
 Auth::routes(['reset' => false, 'confirm' => false, 'verify' => false]);
 
+// Выход из аудентификации
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 // Route::get('/logout', 'Auth\LoginController@logout ')->name('logout');
 
-Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
+// если пользователь админ, перенаправлять на панель администрации
+Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::group(['middleware' => 'is_admin'], function () {
         Route::get('/orders', 'HomeController@index')->name('home');
     });
+    // редактирование категорий в админке
+    Route::resource('categories', 'CategoryController');
 });
 
+// главная страница
 Route::get('/', 'MainController@index')->name('index');
 
+// категории товаров
 Route::get('/categories', 'MainController@categories')->name('categories');
 
+// группа для работы с товарами корзины
 Route::group(['prefix' => 'basket'], function() {
     Route::post('/add/{id}', 'BasketController@basketAdd')->name('basket-add');
 });
 
+// группа с корзиной
 Route::group(['middleware' => 'basket_not_empty', 'prefix' => 'basket'], function() {
     Route::get('/', 'BasketController@basket')->name('basket');
     Route::get('/place', 'BasketController@basketPlace')->name('basket-place');
@@ -38,6 +47,6 @@ Route::group(['middleware' => 'basket_not_empty', 'prefix' => 'basket'], functio
     Route::post('/place', 'BasketController@basketConfirm')->name('basket-confirm');
 });
 
-
+// категория продукта
 Route::get('/{category}', 'MainController@category')->name('category');
 Route::get('/{category}/{product?}', 'MainController@product')->name('product');
