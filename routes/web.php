@@ -24,8 +24,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     Route::group(['middleware' => 'is_admin'], function () {
         Route::get('/orders', 'HomeController@index')->name('home');
     });
-    // редактирование категорий в админке
+    // редактирование в админке
     Route::resource('categories', 'CategoryController');
+    Route::resource('products', 'ProductController');
 });
 
 // главная страница
@@ -35,7 +36,7 @@ Route::get('/', 'MainController@index')->name('index');
 Route::get('/categories', 'MainController@categories')->name('categories');
 
 // группа для работы с товарами корзины
-Route::group(['prefix' => 'basket'], function() {
+Route::group(['middleware' => 'basket_not_empty', 'prefix' => 'basket'], function() {
     Route::post('/add/{id}', 'BasketController@basketAdd')->name('basket-add');
 });
 

@@ -1,5 +1,5 @@
 <div class="product-item">
-    <img src="https://html5book.ru/wp-content/uploads/2015/10/black-dress.jpg">
+    <img src="{{ Storage::url($product->image) }}">
     <div class="product-list">
       <h2>{{ $product -> name }}</h2>
       <h3>{{ $product -> category -> name }}</h3>

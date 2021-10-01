@@ -9,17 +9,16 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-12">
-        @if(isset($category))
+        @isset($category)
             <h1>Редактировать категорию <b>"{{ $category -> name }}"</b></h1>
         @else
             <h1>Добавить категорию</h1>
         @endif
-        {{-- @include('layouts.errors') --}}
         <form method="POST" enctype="multipart/form-data" @isset($category)
             action="{{ route('categories.update', $category) }}" @else action="{{ route('categories.store') }}"
             @endisset>
             <div>
-                @if(isset($category))
+                @isset($category)
                     @method('PUT')
                 @endif
                 @csrf
