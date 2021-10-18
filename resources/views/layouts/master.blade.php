@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.80.0">
-    <title>Пластикаты.РФ @yield('title')</title>
+    <title>Shop @yield('title')</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
 
@@ -77,8 +77,12 @@
                             @endguest
 
                             @auth
+                            @admin
                             <li><a href="{{ route('home') }}" class="text-white">Панель администартора</a></li>
-                            <a class="text-white" href="{{ url('/logout') }}"> logout </a>
+                            @else
+                            <li><a href="{{ route('person.orders.index') }}" class="text-white">Мои заказы</a></li>
+                            @endadmin
+                            <a class="text-white" href="{{ url('/logout') }}"> Выйти </a>
                             @endauth
                         </ul>
                     </div>
@@ -115,26 +119,36 @@
                 <p class="alert alert-warning">{{ session() -> get('access') }}</p>
                 @endif
 
-@yield('content')
+                @yield('content')
 
-        </div>
+            </div>
     </main>
 
-            <footer class="text-muted">
-                <div class="container">
-                    <p class="float-right">
-                        <a href="#">Back to top</a>
-                    </p>
-                    <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-                    <p>New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-                            href="/docs/4.6/getting-started/introduction/">getting started guide</a>.</p>
-                </div>
-            </footer>
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+            <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+            <p>New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
+                    href="/docs/4.6/getting-started/introduction/">getting started guide</a>.</p>
+        </div>
+    </footer>
 
 
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-            <script>window.jQuery || document.write('<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+    <script>
+        window.jQuery || document.write('<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>')
+
+    </script>
+    <script src="/docs/4.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
 
 
 </body>

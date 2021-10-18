@@ -23,19 +23,12 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     protected function redirectTo() {
-        return route('home');
+        if (Auth::user() -> isAdmin()) {
+            return route('home');
+        } else {
+            return route('person.orders.index');
+        }
     }
-
-    // Авторизация от офф ларавелки
-    // public function authenticate(Request $request)
-    // {
-    //     $credentials = $request->only('email', 'password');
-
-    //     if (Auth::attempt($credentials)) {
-    //         // Authentication passed...
-    //         return redirect()->intended('dashboard');
-    //     }
-    // }
 
     /**
      * Where to redirect users after login.
@@ -53,10 +46,4 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function logout () {
-    //     //logout user
-    //     auth()->logout();
-    //     // redirect to homepage
-    //     return redirect() -> route('index');
-    // }
 }

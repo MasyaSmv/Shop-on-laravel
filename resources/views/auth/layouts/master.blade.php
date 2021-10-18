@@ -31,27 +31,27 @@
 </head>
 
 <body>
-<div id="app">
-    <nav class="navbar navbar-default navbar-expand-md navbar-light navbar-laravel">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('index') }}">
-                Вернуться на сайт
-            </a>
+    <div id="app">
+        <nav class="navbar navbar-default navbar-expand-md navbar-light navbar-laravel">
+            <div class="container">
+                <a class="navbar-brand" href="{{ route('index') }}">
+                    Вернуться на сайт
+                </a>
 
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    {{-- @admin --}}
-                    <li><a href="{{ route('categories.index') }}">Категории</a></li>
-                    <li><a href="{{ route('products.index') }}">Товары</a>
-                    <li><a href="">Свойства</a>
-                    <li><a href="">Купоны</a>
-                    <li><a href="">Поставщики</a>
-                    </li>
-                    <li><a href="{{ route('home') }}">Заказы</a></li>
-                    {{-- @endadmin --}}
-                </ul>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        @admin
+                        <li class="mr-3"><a href="{{ route('categories.index') }}">Категории</a></li>
+                        <li class="mr-3"><a href="{{ route('products.index') }}">Товары</a>
+                        <li class="mr-3"><a href="">Свойства</a>
+                        <li class="mr-3"><a href="">Купоны</a>
+                        <li class="mr-3"><a href="">Поставщики</a>
+                        </li>
+                        <li><a href="{{ route('home') }}">Заказы</a></li>
+                        @endadmin
+                    </ul>
 
-                @guest
+                    @guest
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Войти</a>
@@ -60,50 +60,42 @@
                             <a class="nav-link" href="{{ route('register') }}">Зарегистрироваться</a>
                         </li>
                     </ul>
-                @endguest
+                    @endguest
 
-                @auth
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Панель администратора</a>
-                    </li>
-                </ul>
+                    @auth
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false" v-pre>
-                                Masya
-
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                @admin Администратор @else {{ Auth::user()->name }} @endadmin
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout')}}"
-                                   onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{ route('logout')}}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     Выйти
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout')}}" method="POST"
-                                      style="display: none;">
+                                    style="display: none;">
                                     @csrf
                                 </form>
                             </div>
                         </li>
                     </ul>
-                @endauth
+                    @endauth
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <div class="py-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                @yield('content')
+        <div class="py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>
