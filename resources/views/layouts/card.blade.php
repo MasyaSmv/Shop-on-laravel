@@ -1,4 +1,15 @@
 <div class="product-item">
+    <div class="labels">
+        @if ($product -> isNew())
+        <span class="badge badge-success">Новинка</span>
+        @endif
+        @if ($product -> isRecommend())
+        <span class="badge badge-warning">Рекомендуем</span>
+        @endif
+        @if ($product -> isHit())
+        <span class="badge badge-danger">Хитяра</span>
+        @endif
+    </div>
     <img src="{{ Storage::url($product->image) }}">
     <div class="product-list">
       <h2>{{ $product -> name }}</h2>

@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::get();
-        return view('auth.products.form', compact('categories', 'properties'));
+        return view('auth.products.form', compact('categories'));
     }
 
     /**
@@ -44,6 +44,7 @@ class ProductController extends Controller
         $path = $request -> file('image') -> store('products');
         $params = $request -> all();
         $params['image'] = $path;
+
         Product::create($params);
         return redirect()->route('products.index');
     }
@@ -86,6 +87,12 @@ class ProductController extends Controller
             Storage::delete($product -> image);
             $path = $request -> file('image') -> store('products');
             $params['image'] = $path;
+        }
+
+        foreach (['new', 'hit', 'recommend'] as $fieldName) {
+            if (!isset($params[$fieldName])) {
+                $params[$fieldName] = 0;
+            }
         }
 
         $product -> update($params);
