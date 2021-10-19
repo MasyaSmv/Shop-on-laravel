@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Auth::user() -> orders() -> where('status', 1) -> get();
+        $orders = Auth::user() -> orders() -> where('status', 1) -> paginate(10);
         return view('auth.orders.index', compact('orders'));
     }
 
@@ -23,4 +23,3 @@ class OrderController extends Controller
         return view('auth.orders.show', compact('order'));
     }
 }
-
