@@ -70,6 +70,7 @@
                             <li><a href="{{ route('index') }}" class="text-white">Все товары</a></li>
                             <li><a href="{{ route('categories') }}" class="text-white">Категории</a></li>
                             <li><a href="{{ route('basket') }}" class="text-white">В корзину</a></li>
+                            <li><a href="{{ route('reset') }}" class="text-white">Сбросить проект в начальное состояние</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             @guest

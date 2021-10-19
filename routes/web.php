@@ -19,6 +19,8 @@ Auth::routes([
     'verify' => false
 ]);
 
+Route::get('reset','ResetController@reset') -> name('reset');
+
 // Выход из аудентификации
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
