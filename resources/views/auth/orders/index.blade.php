@@ -31,7 +31,7 @@
                 <td>{{ $order -> name}}</td>
                 <td>{{ $order -> phone }}</td>
                 <td>{{ $order -> created_at -> format('H:i d/m/Y') }}</td>
-                <td>{{ $order -> getFullSum() }} руб.</td>
+                <td>{{ $order -> calculateFullSum() }} руб.</td>
                 <td>
                     <div class="btn-group" role="group">
                         <a class="btn btn-success" type="button" @admin href="{{ route('orders.show', $order) }}" @else

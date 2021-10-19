@@ -16,7 +16,11 @@
       <h3>{{ $product -> category -> name }}</h3>
         <span class="price">{{ $product -> price }}</span>
         <form action="{{ route('basket-add', $product) }}" method="POST">
+            @if ($product -> isAvailable())
             <button type="submit" role="button" class="btn btn-danger">В корзину</button>
+            @else
+            Не доступен
+            @endif
             <a href="{{ route('product', [isset($category) ? $category -> code : $product -> category -> code, $product -> code]) }}" class="button">Подробнее</a>
             @csrf
         </form>
