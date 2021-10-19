@@ -17,7 +17,7 @@
         <span class="price">{{ $product -> price }}</span>
         <form action="{{ route('basket-add', $product) }}" method="POST">
             <button type="submit" role="button" class="btn btn-danger">В корзину</button>
-            <a href="{{ route('product', [$product -> category -> code, $product -> code]) }}" class="button">Подробнее</a>
+            <a href="{{ route('product', [isset($category) ? $category -> code : $product -> category -> code, $product -> code]) }}" class="button">Подробнее</a>
             @csrf
         </form>
     </div>

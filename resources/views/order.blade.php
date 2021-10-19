@@ -8,7 +8,7 @@
     <h1>Podtverdite zakaz</h1>
     <div class="container">
         <div class="row justify-content-center">
-            <p>общая стоимость заказа: <b>{{ $order -> getFullPrice() }}</b></p>
+            <p>общая стоимость заказа: <b>{{ $order -> calculateFullSum() }}</b></p>
             <form action=" {{ route('basket-confirm') }}" method="POST">
                 <div>
                     <br>

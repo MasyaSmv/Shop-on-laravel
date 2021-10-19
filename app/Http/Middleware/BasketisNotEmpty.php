@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Order;
 use Closure;
+use App\Models\Order;
 
 class BasketisNotEmpty
 {
@@ -18,12 +18,10 @@ class BasketisNotEmpty
     {
         $orderId = session('orderId');
 
-        if (!is_null($orderId)) {
-            $order = Order::findOrFail($orderId);
-            if ($order->products->count() > 0) {
+        if (!is_null($orderId) && Order::getFullSum() > 0) {
                 return $next($request);
             }
-        }
+
         session()->flash('warning', 'Ваша корзина пуста!');
         return redirect()->route('index');
     }
