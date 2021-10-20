@@ -19,20 +19,20 @@ Auth::routes([
     'verify' => false
 ]);
 
-Route::get('reset','ResetController@reset') -> name('reset');
+Route::get('reset', 'ResetController@reset')->name('reset');
 
 // Выход из аудентификации
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 // если пользователь админ, перенаправлять на панель администрации
-Route::middleware(['auth']) -> group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::group([
         'prefix' => 'person',
         'namespace' => 'Person',
         'as' => 'person.',
     ], function () {
-        Route::get('/orders', 'OrderController@index') -> name('orders.index');
-        Route::get('/orders/{order}', 'OrderController@show') -> name('orders.show');
+        Route::get('/orders', 'OrderController@index')->name('orders.index');
+        Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
     });
 
     Route::group([
@@ -40,8 +40,8 @@ Route::middleware(['auth']) -> group(function () {
         'prefix' => 'admin',
     ], function () {
         Route::group(['middleware' => 'is_admin'], function () {
-            Route::get('/orders', 'HomeController@index') -> name('home');
-            Route::get('/orders/{order}', 'HomeController@show') -> name('orders.show');
+            Route::get('/orders', 'HomeController@index')->name('home');
+            Route::get('/orders/{order}', 'HomeController@show')->name('orders.show');
         });
 
         Route::resource('categories', 'CategoryController');
@@ -57,14 +57,14 @@ Route::get('/categories', 'MainController@categories')->name('categories');
 
 // группа для работы с товарами корзины
 Route::group(['prefix' => 'basket'], function () {
-    Route::post('/add/{id}', 'BasketController@basketAdd')->name('basket-add');
+    Route::post('/add/{product}', 'BasketController@basketAdd')->name('basket-add');
 
     Route::group([
         'middleware' => 'basket_not_empty',
     ], function () {
         Route::get('/', 'BasketController@basket')->name('basket');
         Route::get('/place', 'BasketController@basketPlace')->name('basket-place');
-        Route::post('/remove/{id}', 'BasketController@basketRemove')->name('basket-remove');
+        Route::post('/remove/{product}', 'BasketController@basketRemove')->name('basket-remove');
         Route::post('/place', 'BasketController@basketConfirm')->name('basket-confirm');
     });
 });

@@ -11,11 +11,14 @@
     <div class="product-list">
         <h3>{{ $product -> description }}</h3>
         <p class="price">{{ $product -> price }}</p>
-        @if ($product -> isAvailable())
-        <a href="{{ route('basket-add', $product) }}" class="btn btn-success">В корзину</a>
-        @else
-        Не доуступен
-        @endif
+        <form action="{{ route('basket-add', $product) }}" method="POST">
+            @if ($product -> isAvailable())
+            <button type="submit" role="button" class="btn btn-success">В корзину</button>
+            @else
+            Не доступен
+            @endif
+            @csrf
+        </form>
     </div>
 </div>
 </div>

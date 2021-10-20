@@ -6,28 +6,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $fillable = ['user_id'];
+
     public function products()
     {
-        return $this -> belongsToMany(Product::class) -> withPivot('count') -> withTimestamps();
+        return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps();
     }
 
     public function scopeActive($query)
     {
-        return $query -> where('status', 1);
+        return $query->where('status', 1);
     }
 
     public function calculateFullSum()
     {
         $sum = 0;
-        foreach ($this -> products() -> withTrashed() -> get() as $product) {
-            $sum += $product -> getPriceForCount();
+        foreach ($this->products()->withTrashed()->get() as $product) {
+            $sum += $product->getPriceForCount();
         }
         return $sum;
     }
 
     public static function eraseOrderSum()
     {
-        session() -> forget('full_order_sum');
+        session()->forget('full_order_sum');
     }
 
     public static function changeFullSum($changeSum)
@@ -43,12 +45,12 @@ class Order extends Model
 
     public function saveOrder($name, $phone)
     {
-        if ($this -> status == 0) {
-            $this -> name = $name;
-            $this -> phone = $phone;
-            $this -> status = 1;
-            $this -> save();
-            session() -> forget('orderId');
+        if ($this->status == 0) {
+            $this->name = $name;
+            $this->phone = $phone;
+            $this->status = 1;
+            $this->save();
+            session()->forget('orderId');
             return true;
         } else {
             return false;
