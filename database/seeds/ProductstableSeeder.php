@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ProductstableSeeder extends Seeder
+class ProductsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -52,7 +52,7 @@ class ProductstableSeeder extends Seeder
             [
                 'name' => 'Наушники Beats Audio',
                 'code' => 'beats_audio',
-                'description' => 'Отличный классический iPhone',
+                'description' => 'Отличный звук от Dr. Dre',
                 'price' => '20221',
                 'category_id' => 2,
                 'image' => 'products/beats.jpg',
@@ -80,7 +80,7 @@ class ProductstableSeeder extends Seeder
                 'name' => 'Кофемашина DeLongi',
                 'code' => 'delongi',
                 'description' => 'Хорошее утро начинается с хорошего кофе!',
-                'price' => '40200',
+                'price' => '25200',
                 'category_id' => 3,
                 'image' => 'products/delongi.jpg',
                 'count' => rand(0, 10),
@@ -110,6 +110,15 @@ class ProductstableSeeder extends Seeder
                 'price' => '9200',
                 'category_id' => 3,
                 'image' => 'products/bosch.jpg',
+                'count' => rand(0, 10),
+            ],
+            [
+                'name' => 'Samsung Galaxy J6',
+                'code' => 'samsung_j6',
+                'description' => 'Современный телефон начального уровня',
+                'price' => '11980',
+                'category_id' => 1,
+                'image' => 'products/samsung_j6.jpg',
                 'count' => rand(0, 10),
             ],
         ]);

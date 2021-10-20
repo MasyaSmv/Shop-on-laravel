@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,20 +9,18 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
- */
-// надстройки аудентификации
+*/
+
 Auth::routes([
     'reset' => false,
     'confirm' => false,
-    'verify' => false
+    'verify' => false,
 ]);
 
 Route::get('reset', 'ResetController@reset')->name('reset');
 
-// Выход из аудентификации
-Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('get-logout');
 
-// если пользователь админ, перенаправлять на панель администрации
 Route::middleware(['auth'])->group(function () {
     Route::group([
         'prefix' => 'person',
@@ -49,13 +45,11 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-// главная страница
-Route::get('/', 'MainController@index')->name('index');
 
-// категории товаров
+Route::get('/', 'MainController@index')->name('index');
 Route::get('/categories', 'MainController@categories')->name('categories');
 
-// группа для работы с товарами корзины
+
 Route::group(['prefix' => 'basket'], function () {
     Route::post('/add/{product}', 'BasketController@basketAdd')->name('basket-add');
 
@@ -69,6 +63,6 @@ Route::group(['prefix' => 'basket'], function () {
     });
 });
 
-// Категория продуктов
+
 Route::get('/{category}', 'MainController@category')->name('category');
-Route::get('/{category}/{product?}', 'MainController@product')->name('product');
+Route::get('/{category}/{product}', 'MainController@product')->name('product');

@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App\Models\Order;
+use Closure;
 
-class BasketisNotEmpty
+class BasketIsNotEmpty
 {
     /**
      * Handle an incoming request.
