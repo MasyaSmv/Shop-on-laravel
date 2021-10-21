@@ -1,31 +1,34 @@
 @extends('layouts.master')
 
-@section('title', 'Товар')
+@section('title', __('main.product'))
 
 @section('content')
-<h1>{{ $product->__('name') }}</h1>
-<h2>{{ $product->category->name }}</h2>
-<p>Цена: <b>{{ $product->price }} руб.</b></p>
-<img src="{{ Storage::url($product->image) }}">
-<p>{{ $product->description }}</p>
+    <h1>{{ $product->__('name') }}</h1>
+    <h2>{{ $product->category->name }}</h2>
+    <p>@lang('product.price'): <b>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</b></p>
+    <img src="{{ Storage::url($product->image) }}">
+    <p>{{ $product->__('description') }}</p>
 
-@if($product->isAvailable())
-<form action="{{ route('basket-add', $product) }}" method="POST">
-    <button type="submit" class="btn btn-success" role="button">Добавить в корзину</button>
-    @csrf
-</form>
-@else
-<span>Не доступен</span>
-<br>
-<span>Сообщить мне о постоуплении товара</span>
-<div class="warning"></div>
-@if ($errors->get('email'))
-{!! $errors->get('email')[0] !!}
-@endif
-<form action="{{ route('subscription', $product) }}" method="POST">
-    @csrf
-    <input type="text" name="email">
-    <button type="submit" class="btn btn-warning">Отправить</button>
-</form>
-@endif
+    @if($product->isAvailable())
+        <form action="{{ route('basket-add', $product) }}" method="POST">
+            <button type="submit" class="btn btn-success" role="button">@lang('product.add_to_cart')</button>
+
+            @csrf
+        </form>
+    @else
+
+        <span>@lang('product.not_available')</span>
+        <br>
+        <span>@lang('product.tell_me'):</span>
+        <div class="warning">
+            @if($errors->get('email'))
+                {!! $errors->get('email')[0] !!}
+            @endif
+        </div>
+        <form method="POST" action="{{ route('subscription', $product) }}">
+            @csrf
+            <input type="text" name="email"></input>
+            <button type="submit">@lang('product.subscribe')</button>
+        </form>
+    @endif
 @endsection

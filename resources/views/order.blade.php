@@ -1,34 +1,47 @@
 @extends('layouts.master')
 
-@section('title', __('main.product'))
+@section('title', __('basket.place_order'))
 
 @section('content')
-    <h1>{{ $product->__('name') }}</h1>
-    <h2>{{ $product->category->name }}</h2>
-    <p>@lang('product.price'): <b>{{ $product->price }} @lang('main.rub').</b></p>
-    <img src="{{ Storage::url($product->image) }}">
-    <p>{{ $product->__('description') }}</p>
+    <h1>@lang('basket.approve_order'):</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <p>@lang('basket.full_cost'): <b>{{ $order->calculateFullSum() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</b></p>
+            <form action="{{ route('basket-confirm') }}" method="POST">
+                <div>
+                    <p>@lang('basket.personal_data'):</p>
 
-    @if($product->isAvailable())
-        <form action="{{ route('basket-add', $product) }}" method="POST">
-            <button type="submit" class="btn btn-success" role="button">@lang('product.add_to_cart')</button>
-
-            @csrf
-        </form>
-    @else
-
-        <span>@lang('product.not_available')</span>
-        <br>
-        <span>@lang('product.tell_me'):</span>
-        <div class="warning">
-            @if($errors->get('email'))
-                {!! $errors->get('email')[0] !!}
-            @endif
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-lg-offset-3 col-lg-2">@lang('basket.data.name'): </label>
+                            <div class="col-lg-4">
+                                <input type="text" name="name" id="name" value="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <label for="phone" class="control-label col-lg-offset-3 col-lg-2">@lang('basket.data.phone'): </label>
+                            <div class="col-lg-4">
+                                <input type="text" name="phone" id="phone" value="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        @guest
+                            <div class="form-group">
+                                <label for="name" class="control-label col-lg-offset-3 col-lg-2">@lang('basket.data.email'): </label>
+                                <div class="col-lg-4">
+                                    <input type="text" name="email" id="email" value="" class="form-control">
+                                </div>
+                            </div>
+                        @endguest
+                    </div>
+                    <br>
+                    @csrf
+                    <input type="submit" class="btn btn-success" value="@lang('basket.approve_order')">
+                </div>
+            </form>
         </div>
-        <form method="POST" action="{{ route('subscription', $product) }}">
-            @csrf
-            <input type="text" name="email"></input>
-            <button type="submit">@lang('product.subscribe')</button>
-        </form>
-    @endif
+    </div>
 @endsection
