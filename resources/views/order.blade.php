@@ -1,48 +1,34 @@
 @extends('layouts.master')
 
-@section('title', 'Оформить заказ')
+@section('title', __('main.product'))
 
 @section('content')
-    <h1>Подтвердите заказ:</h1>
-    <div class="container">
-        <div class="row justify-content-center">
-            <p>Общая стоимость заказа: <b>{{ $order->calculateFullSum() }} руб.</b></p>
-            <form action="{{ route('basket-confirm') }}" method="POST">
-                <div>
-                    <p>Укажите свои имя и номер телефона, чтобы наш менеджер мог с вами связаться:</p>
+    <h1>{{ $product->name }}</h1>
+    <h2>{{ $product->category->name }}</h2>
+    <p>@lang('product.price'): <b>{{ $product->price }} @lang('main.rub').</b></p>
+    <img src="{{ Storage::url($product->image) }}">
+    <p>{{ $product->description }}</p>
 
-                    <div class="container">
-                        <div class="form-group">
-                            <label for="name" class="control-label col-lg-offset-3 col-lg-2">Имя: </label>
-                            <div class="col-lg-4">
-                                <input type="text" name="name" id="name" value="" class="form-control">
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="form-group">
-                            <label for="phone" class="control-label col-lg-offset-3 col-lg-2">Номер
-                                телефона: </label>
-                            <div class="col-lg-4">
-                                <input type="text" name="phone" id="phone" value="" class="form-control">
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-                        @guest
-                            <div class="form-group">
-                                <label for="name" class="control-label col-lg-offset-3 col-lg-2">Email: </label>
-                                <div class="col-lg-4">
-                                    <input type="text" name="email" id="email" value="" class="form-control">
-                                </div>
-                            </div>
-                        @endguest
-                    </div>
-                    <br>
-                    @csrf
-                    <input type="submit" class="btn btn-success" value="Подтвердить заказ">
-                </div>
-            </form>
+    @if($product->isAvailable())
+        <form action="{{ route('basket-add', $product) }}" method="POST">
+            <button type="submit" class="btn btn-success" role="button">@lang('product.add_to_cart')</button>
+
+            @csrf
+        </form>
+    @else
+
+        <span>@lang('product.not_available')</span>
+        <br>
+        <span>@lang('product.tell_me'):</span>
+        <div class="warning">
+            @if($errors->get('email'))
+                {!! $errors->get('email')[0] !!}
+            @endif
         </div>
-    </div>
+        <form method="POST" action="{{ route('subscription', $product) }}">
+            @csrf
+            <input type="text" name="email"></input>
+            <button type="submit">@lang('product.subscribe')</button>
+        </form>
+    @endif
 @endsection

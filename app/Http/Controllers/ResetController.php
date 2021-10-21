@@ -13,7 +13,6 @@ class ResetController extends Controller
         Artisan::call('migrate:fresh --seed');
 
         foreach (['categories', 'products'] as $folder) {
-
             Storage::deleteDirectory($folder);
             Storage::makeDirectory($folder);
 
@@ -24,7 +23,7 @@ class ResetController extends Controller
             }
         }
 
-        session()->flash('success', 'Проект был сброшен в начальное состояние');
+        session()->flash('success', __('main.project_reset'));
         return redirect()->route('index');
     }
 }

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.80.0">
-    <title>Shop @yield('title')</title>
+    <title>@lang('main.online_shop'): @yield('title')</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
 
@@ -67,23 +67,24 @@
                     <div class="col-sm-4 offset-md-1 py-4">
                         <h4 class="text-white">Contact</h4>
                         <ul class="list-unstyled">
-                            <li><a href="{{ route('index') }}" class="text-white">Все товары</a></li>
-                            <li><a href="{{ route('categories') }}" class="text-white">Категории</a></li>
-                            <li><a href="{{ route('basket') }}" class="text-white">В корзину</a></li>
-                            <li><a href="{{ route('reset') }}" class="text-white">Сбросить проект в начальное состояние</a></li>
+                            <li><a href="{{ route('index') }}" class="text-white">@lang('main.all_products')</a></li>
+                            <li><a href="{{ route('categories') }}" class="text-white">@lang('main.categories')</a></li>
+                            <li><a href="{{ route('basket') }}" class="text-white">@lang('main.cart')</a></li>
+                            <li><a href="{{ route('reset') }}" class="text-white">@lang('main.reset_project')</a></li>
+                            <li><a href="{{ route('locale', __('main.set_lang')) }}" class="text-white">@lang('main.set_lang')</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             @guest
-                            <li><a href="{{ route('login') }}" class="text-white">Войти</a></li>
+                            <li><a href="{{ route('login') }}" class="text-white">@lang('main.login')</a></li>
                             @endguest
 
                             @auth
                             @admin
-                            <li><a href="{{ route('home') }}" class="text-white">Панель администартора</a></li>
+                            <li><a href="{{ route('home') }}" class="text-white">@lang('main.admin_panel')</a></li>
                             @else
-                            <li><a href="{{ route('person.orders.index') }}" class="text-white">Мои заказы</a></li>
+                            <li><a href="{{ route('person.orders.index') }}" class="text-white">@lang('main.my_orders')</a></li>
                             @endadmin
-                            <a class="text-white" href="{{ url('/logout') }}"> Выйти </a>
+                            <a class="text-white" href="{{ url('/logout') }}">@lang('main.logout')</a>
                             @endauth
                         </ul>
                     </div>
@@ -98,7 +99,7 @@
                         viewBox="0 0 24 24" focusable="false">
                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
                         <circle cx="12" cy="13" r="4" /></svg>
-                    <strong>Album</strong>
+                    <strong>{{__('main.online_shop')}}</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">

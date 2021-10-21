@@ -1,28 +1,35 @@
-<div class="product-item">
-    <div class="labels">
-        @if ($product -> isNew())
-        <span class="badge badge-success">Новинка</span>
-        @endif
-        @if ($product -> isRecommend())
-        <span class="badge badge-warning">Рекомендуем</span>
-        @endif
-        @if ($product -> isHit())
-        <span class="badge badge-danger">Хитяра</span>
-        @endif
-    </div>
-    <img src="{{ Storage::url($product->image) }}">
-    <div class="product-list">
-      <h2>{{ $product -> name }}</h2>
-      <h3>{{ $product -> category -> name }}</h3>
-        <span class="price">{{ $product -> price }}</span>
-        <form action="{{ route('basket-add', $product) }}" method="POST">
-            @if ($product -> isAvailable())
-            <button type="submit" role="button" class="btn btn-danger">В корзину</button>
-            @else
-            Не доступен
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+        <div class="labels">
+            @if($product->isNew())
+                <span class="badge badge-success">@lang('main.properties.new')</span>
             @endif
-            <a href="{{ route('product', [isset($category) ? $category -> code : $product -> category -> code, $product -> code]) }}" class="button">Подробнее</a>
-            @csrf
-        </form>
+
+            @if($product->isRecommend())
+                <span class="badge badge-warning">@lang('main.properties.recommend')</span>
+            @endif
+
+            @if($product->isHit())
+                <span class="badge badge-danger">@lang('main.properties.hit')</span>
+            @endif
+        </div>
+        <img height="250px" src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}">
+        <div class="caption">
+            <h3>{{ $product->name }}</h3>
+            <p>{{ $product->price }} @lang('main.rub').</p>
+            <p>
+            <form action="{{ route('basket-add', $product) }}" method="POST">
+                @if($product->isAvailable())
+                    <button type="submit" class="btn btn-primary" role="button">@lang('main.add_to_basket')</button>
+                @else
+                    @lang('main.not_available')
+                @endif
+                <a href="{{ route('product', [isset($category) ? $category->code : $product->category->code, $product->code]) }}"
+                   class="btn btn-default"
+                   role="button">@lang('main.more')</a>
+                @csrf
+            </form>
+            </p>
+        </div>
     </div>
-  </div>
+</div>
