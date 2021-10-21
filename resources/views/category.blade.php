@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
-@section('title', __('main.category') . $category -> name)
+@section('title', __('main.category') . $category->__('name'))
 
 @section('content')
 <h1>
-    {{$category -> name}} {{ $category -> products -> count()}}
+    {{$category->__('name')}} {{ $category -> products -> count()}}
 </h1>
-<p class="lead text-muted">{{$category -> description}}</p>
+<p class="lead text-muted">{{$category->__('description')}}</p>
 <p>
     <a href="#" class="btn btn-primary my-2">Main call to action</a>
     <a href="#" class="btn btn-secondary my-2">Secondary action</a>
