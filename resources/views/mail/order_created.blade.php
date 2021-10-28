@@ -12,12 +12,12 @@
                     {{ $product->__('name') }}
                 </a>
             </td>
-            <td><span class="badge">{{ $product->pivot->count }}</span>
+            <td><span class="badge">{{ $product->countInOrder }}</span>
                 <div class="btn-group form-inline">
                     {!! $product->__('description') !!}
                 </div>
             </td>
-            <td>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
+            <td>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}.</td>
             <td>{{ $product->getPriceForCount() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}.</td>
         </tr>
     @endforeach
