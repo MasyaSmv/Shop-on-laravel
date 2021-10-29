@@ -1,5 +1,13 @@
+html,
+body {
+    height: 100%;
+}
+
 body {
     padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 .starter-template {
@@ -46,9 +54,14 @@ div.filters {
     padding-bottom: 5px;
 }
 
+div.container {
+    flex: 1 0 auto;
+}
+
 footer {
     padding-top: 50px;
     padding-bottom: 50px;
     color: #99979c;
     background-color: #2a2730;
+    flex: 0 0 auto;
 }
