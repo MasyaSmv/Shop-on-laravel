@@ -43,7 +43,8 @@
                         @admin
                         <li class="mr-3"><a href="{{ route('categories.index') }}">Категории</a></li>
                         <li class="mr-3"><a href="{{ route('products.index') }}">Товары</a>
-                        <li class="mr-3"><a href="">Свойства</a>
+                        <li class="mr-3"><a href="{{ route('properties.index') }}">Свойства</a>
+                        <li class="mr-3"><a href="{{ route('property-options.index') }}">Варианты свойства</a>
                         <li class="mr-3"><a href="">Купоны</a>
                         <li class="mr-3"><a href="">Поставщики</a>
                         </li>
